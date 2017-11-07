@@ -20,7 +20,7 @@ def print_names_while(names)
 end
 
 def print_footer(names)
-    if names.size < 1
+    if names.size > 1
         puts "Overall, we have #{names.count} great students".center(40)
     else
         puts "We only have one student, but they are amazing".center(40)
