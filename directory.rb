@@ -5,9 +5,9 @@ end
 
 def print_names(names)
     names.each_with_index do |student, index|
-        puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-        puts "Hobby: #{student[:hobby]}"
-        puts "Country of birth: #{student[:country]}"
+        puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(40)
+        puts "Hobby: #{student[:hobby]}".center(40)
+        puts "Country of birth: #{student[:country]}".center(40)
     end
 end
 
@@ -20,7 +20,7 @@ def print_names_while(names)
 end
 
 def print_footer(names)
-    puts "Overall, we have #{names.count} great students"
+    puts "Overall, we have #{names.count} great students".center(40)
 end
 
 def input_students
