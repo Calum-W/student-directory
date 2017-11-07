@@ -9,6 +9,15 @@ def print_names(names)
     end
 end
 
+# prints all students using a while loop
+def print_names_while(names)
+    counter = 0
+    while counter < names.length do
+        puts "#{counter + 1}. #{names[counter][:name]} (#{names[counter][:cohort]} cohort)"
+        counter += 1
+    end
+end
+
 def print_footer(names)
     puts "Overall, we have #{names.count} great students"
 end
@@ -26,12 +35,14 @@ def input_students
     students
 end
 
+# prints all students beginning with a given letter
 def letter_names(names, letter)
     names.each do |student|
-        puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[name].start_with? letter
+        puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name].start_with? letter
     end
 end
 
+# prints all students whose name is less than 12 characters
 def length_names(names)
 	names.each do |student|
         puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name].length < 12
