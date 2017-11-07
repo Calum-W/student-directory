@@ -4,13 +4,13 @@ def print_header
 end
 
 def print_names(names)
-    names.each do |student|
-        puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    names.each_with_index do |student, index|
+        puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
     end
 end
 
 def print_footer(names)
-    print "Overall, we have #{names.count} great students"
+    puts "Overall, we have #{names.count} great students"
 end
 
 def input_students
@@ -24,6 +24,18 @@ def input_students
         name = gets.chomp
     end
     students
+end
+
+def letter_names(names, letter)
+    names.each do |student|
+        puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[name].start_with? letter
+    end
+end
+
+def length_names(names)
+	names.each do |student|
+        puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name].length < 12
+    end
 end
 
 students = input_students
