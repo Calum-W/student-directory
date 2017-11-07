@@ -20,7 +20,11 @@ def print_names_while(names)
 end
 
 def print_footer(names)
-    puts "Overall, we have #{names.count} great students".center(40)
+    if names.size < 1
+        puts "Overall, we have #{names.count} great students".center(40)
+    else
+        puts "We only have one student, but they are amazing".center(40)
+    end
 end
 
 def input_students
@@ -38,8 +42,14 @@ def input_students
         # gives a default cohort of November if user doesn't enter one
         cohort = :November if cohort.empty?
         cohort = cohort.capitalize.to_sym
+        months = [:January, :February, :March, :April, :May, :June, :July, :August, :September, :October, :November, :December]
+        until months.include?(cohort)
+            puts "Cohort should be the full name of a month. Please check and try again"
+            cohort = gets.chomp
+            cohort = cohort.capitalize.to_sym
+        end
         students << {name: name, hobby: hobby, country: country, cohort: cohort}
-        puts "Now we have #{students.count} students. Enter a name to add another student, or hit return to exit."
+        puts "Now we have #{students.count} student#{print "s" if students.size == 1}. Enter a name to add another student, or hit return to exit."
         name = gets.chomp
     end
     students
@@ -58,6 +68,8 @@ def length_names(names)
 end
 
 students = input_students
-print_header
-print_names(students)
-print_footer(students)
+if !students.empty?
+    print_header
+    print_names(students)
+    print_footer(students)
+end
