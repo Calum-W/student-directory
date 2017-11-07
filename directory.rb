@@ -6,10 +6,11 @@ end
 def print_names(names)
     names.each_with_index do |student, index|
         puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+        puts "Hobby: #{student[:hobby]}"
+        puts "Country of birth: #{student[:country]}"
     end
 end
 
-# prints all students using a while loop
 def print_names_while(names)
     counter = 0
     while counter < names.length do
@@ -28,21 +29,28 @@ def input_students
     students = []
     name = gets.chomp
     while !name.empty? do
-        students << {name: name, cohort: :november}
-        puts "Now we have #{students.count} students"
+        puts "What is their hobby?"
+        hobby = gets.chomp
+        puts "Where is their country of birth?"
+        country = gets.chomp.capitalize
+        puts "Which cohort have they joined?"
+        cohort = gets.chomp
+        # gives a default cohort of November if user doesn't enter one
+        cohort = :November if cohort.empty?
+        cohort = cohort.capitalize.to_sym
+        students << {name: name, hobby: hobby, country: country, cohort: cohort}
+        puts "Now we have #{students.count} students. Enter a name to add another student, or hit return to exit."
         name = gets.chomp
     end
     students
 end
 
-# prints all students beginning with a given letter
 def letter_names(names, letter)
     names.each do |student|
-        puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name].start_with? letter
+        puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[name].start_with? letter
     end
 end
 
-# prints all students whose name is less than 12 characters
 def length_names(names)
 	names.each do |student|
         puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name].length < 12
