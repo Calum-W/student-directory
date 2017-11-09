@@ -1,19 +1,5 @@
 @students = [] # an empty array accessible to all methods
 
-def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  # get the first name
-  name = STDIN.gets.chomp
-  # while the name is not empty, repeat this code
-  while !name.empty? do
-    # add the student hash to the array
-    @students << {name: name, cohort: :november}
-    puts "Now we have #{@students.count} students"
-    # get another name from the user
-    name = STDIN.gets.chomp
-  end
-end
 
 def interactive_menu
   loop do
@@ -82,14 +68,31 @@ def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+    cohort = cohort.to_sym
+    add_students(name, cohort)
   end
   file.close
 end
 
-def try_load_students
-  filename = ARGV.first
-  return if filename.nil?
+def input_students
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
+  # get the first name
+  name = STDIN.gets.chomp
+  # while the name is not empty, repeat this code
+  while !name.empty? do
+    add_students(name, :November)
+    name = STDIN.gets.chomp
+  end
+end
+
+def add_students(name, cohort)
+  @students << {name: name, cohort: cohort}
+  puts "Now we have #{@students.count} student#{"s" if @students.count != 1}"
+end
+
+def try_load_students(filename = students.csv)
+  filename = ARGV.first if !ARGV.first.nil?
   if File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} student#{"s" if @students.count != 1} from #{filename}."
@@ -98,8 +101,6 @@ def try_load_students
     exit
   end
 end
-
-
 
 
 interactive_menu
