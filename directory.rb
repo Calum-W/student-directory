@@ -9,6 +9,8 @@ def interactive_menu
 end
 
 def print_menu
+  # added a prompt above the options
+  puts "Please choose an option below by entering a number"
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
@@ -16,7 +18,8 @@ def print_menu
   puts "9. Exit"
 end
 
-def show_students
+# changed method name from "show students" to give a clearer idea of function
+def print_all_info
   print_header
   print_student_list
   print_footer
@@ -27,7 +30,7 @@ def process(selection)
   when "1"
     input_students
   when "2"
-    show_students
+    print_all_info
   when "3"
     save_students
   when "4"
@@ -51,7 +54,7 @@ def print_student_list
 end
 
 def print_footer
-  puts "Overall, we have #{@students.count} great students"
+  puts "Overall, we have #{@students.count} great student#{"s" if @students.count != 1}"
 end
 
 def save_students
@@ -101,6 +104,8 @@ def try_load_students(filename = students.csv)
     exit
   end
 end
+
+
 
 
 interactive_menu
