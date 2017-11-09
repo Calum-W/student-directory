@@ -13,8 +13,8 @@ def print_menu
   puts "Please choose an option below by entering a number"
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list"
+  puts "4. Load the list"
   puts "9. Exit"
 end
 
@@ -34,11 +34,12 @@ def process(selection)
     puts "Printing student information"
     print_all_info
   when "3"
-    save_students
+    puts "Which file would you like to save to?"
+    save_students(STDIN.gets.chomp)
     puts "Students saved"
   when "4"
-    "Loading students"
-    load_students
+    puts "Which file would you like to load from?"
+    load_students(STDIN.gets.chomp)
   when "9"
     puts "Thank you. Have a good day"
     exit
@@ -62,24 +63,32 @@ def print_footer
   puts "Overall, we have #{@students.count} great student#{"s" if @students.count != 1}"
 end
 
-def save_students
-  file = File.open("students.csv", "w")
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+def save_students(filename = "students.csv")
+  if File.exists?(filename)
+    file = File.open(filename, "w")
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
+    file.close
+  else
+    puts "That file does not exist."
   end
-  file.close
 end
 
 def load_students(filename = "students.csv")
-  file = File.open("students.csv", "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    cohort = cohort.to_sym
-    add_students(name, cohort)
-  end
-  file.close
+    if File.exists?(filename)
+        file = File.open(filename, "r")
+        file.readlines.each do |line|
+            name, cohort = line.chomp.split(",")
+            cohort = cohort.to_sym
+            add_students(name, cohort)
+        end
+        file.close
+    else
+      puts "That file does not exist."
+    end
 end
 
 def input_students
@@ -109,8 +118,6 @@ def try_load_students(filename = students.csv)
     exit
   end
 end
-
-
 
 
 interactive_menu
